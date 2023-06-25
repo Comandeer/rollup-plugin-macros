@@ -1,4 +1,5 @@
 import { writeFile } from 'node:fs/promises';
+import { pathToFileURL } from 'node:url';
 import { Worker } from 'node:worker_threads';
 import { generate } from 'escodegen';
 import {  walk } from 'estree-walker';
@@ -46,11 +47,12 @@ async function handleCallExpression( node, macros, parse ) {
  */
 async function executeMacro( { name, path }, args ) {
 	const alias = name === 'default' ? 'tempName' : name;
+	const pathURL = pathToFileURL( path );
 	const formattedArgs = args.map( ( node ) => {
 		return generate( node );
 	} ).join( ', ' );
 	const code = `import { parentPort } from 'node:worker_threads';
-	import { ${ name } as ${ alias } } from '${ path }';
+	import { ${ name } as ${ alias } } from '${ pathURL }';
 
 	const result = await ${ alias }( ${ formattedArgs } );
 
