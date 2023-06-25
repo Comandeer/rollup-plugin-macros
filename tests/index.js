@@ -54,6 +54,14 @@ test( 'inlining result of a single named import with arguments', assertBundle, {
 	expected: 'console.log(4);'
 } );
 
+test( 'inlining an object result of a default import with complex arguments', assertBundle, {
+	fixture: resolvePath( fixturesPath, 'default-import-complex-arguments-object.js' ),
+	expected: `console.log({
+    'array': 2,
+    'object': 3
+});`
+} );
+
 test( 'old assert syntax is correctly recognized', assertBundle, {
 	fixture: resolvePath( fixturesPath, 'old-syntax.js' ),
 	expected: 'console.log(42);'

@@ -55,6 +55,11 @@ function handleImportDeclaration( node, macros, path ) {
 }
 
 async function handleCallExpression( node, macros, parse ) {
+	const allowedArgNodeTypes = [
+		'Literal',
+		'ObjectExpression',
+		'ArrayExpression'
+	];
 	const name = node.callee.name;
 	if ( !macros.has( name ) ) {
 		return;
@@ -62,12 +67,12 @@ async function handleCallExpression( node, macros, parse ) {
 
 	const macro = macros.get( name );
 	const args = node.arguments;
-	const isSupported = args.every( ( arg ) => {
-		return arg.type === 'Literal';
+	const isSupported = args.every( ( { type } ) => {
+		return allowedArgNodeTypes.includes( type );
 	} );
 
 	if ( !isSupported ) {
-		throw new Error( 'Only macros with arguments of primitive types are supported currently.' );
+		throw new Error( 'Only macros with arguments of primitive types, object and arrays are supported currently.' );
 	}
 
 	const macroResult = await executeMacro( macro, args );
@@ -109,8 +114,8 @@ function extractMacros( macros, node, modulePath ) {
 function executeMacro( { name, path }, args ) {
 	return new Promise( async ( resolve, reject ) => {
 		const alias = name === 'default' ? 'tempName' : name;
-		const formattedArgs = args.map( ( { raw } ) => {
-			return raw
+		const formattedArgs = args.map( ( node ) => {
+			return generate( node );
 		} ).join( ', ' );
 		const code = `import { parentPort } from 'node:worker_threads';
 		import { ${ name } as ${ alias } } from '${ path }';
