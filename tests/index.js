@@ -66,3 +66,8 @@ test( 'old assert syntax is correctly recognized', assertBundle, {
 	fixture: resolvePath( fixturesPath, 'old-syntax.js' ),
 	expected: 'console.log(42);'
 } );
+
+test( 'no macro imports are ignored', assertBundle, {
+	fixture: resolvePath( fixturesPath, 'no-macro.js' ),
+	expected: /function random\(\).+?console\.log\(random\(\)\);/s
+} );
