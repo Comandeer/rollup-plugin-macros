@@ -30,6 +30,32 @@ export default {
 export default config;
 ```
 
+Now you can create a module with a macro, e.g. `random.js`:
+
+```javascript
+function random() {
+	return Math.random();
+}
+
+export { random };
+```
+
+And then import it in your code with appropriate import attribute:
+
+```javascript
+import { random } from './random.js' with { type: 'macro' };
+// or using the older syntax
+// import { random } from './random.js' assert { type: 'macro' };
+
+console.log( random() );
+```
+
+After bundling the code with Rollup the import will be removed and the `random()` call replaced with an actual value returned by the macro:
+
+```javascript
+console.log(0.7507075485199182);
+```
+
 ## How does it work?
 
 ## License
