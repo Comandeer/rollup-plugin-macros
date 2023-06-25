@@ -1,8 +1,8 @@
 import { fileURLToPath } from 'node:url';
-import { dirname } from 'pathe';
+import { dirname, normalize } from 'pathe';
 
 function getDirName( url ) {
-	const filePath = fileURLToPath( url );
+	const filePath = normalize( fileURLToPath( url ) );
 	const dirPath = dirname( filePath );
 
 	return dirPath;
