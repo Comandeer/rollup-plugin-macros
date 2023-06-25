@@ -62,6 +62,15 @@ test( 'inlining an object result of a default import with complex arguments', as
 });`
 } );
 
+test(
+	'inlining an object result of a default async import without arguments',
+	assertBundle,
+	{
+		fixture: resolvePath( fixturesPath, 'default-import-no-arguments-async-object.js' ),
+		expected: 'console.log({ \'a\': true });'
+	}
+);
+
 test( 'old assert syntax is correctly recognized', assertBundle, {
 	fixture: resolvePath( fixturesPath, 'old-syntax.js' ),
 	expected: 'console.log(42);'
