@@ -138,11 +138,16 @@ function executeMacro( { name, path }, args ) {
 }
 
 function getValueNode( node ) {
+	const allowedNodeTypes = [
+		'Literal',
+		'ObjectExpression',
+		'ArrayExpression'
+	];
 	let valueNode;
 
 	walk( node, {
 		enter( node ) {
-			if ( node.type !== 'Literal' && node.type !== 'ObjectExpression' ) {
+			if ( !allowedNodeTypes.includes( node.type ) ) {
 				return;
 			}
 

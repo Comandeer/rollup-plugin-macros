@@ -31,6 +31,19 @@ test(
 	}
 );
 
+test(
+	'inlining an array result of a single named import without arguments',
+	assertBundle,
+	{
+		fixture: resolvePath( fixturesPath, 'named-import-no-arguments-array.js' ),
+		expected: `console.log([
+    1,
+    2,
+    3
+]);`
+	}
+);
+
 test( 'inlining result of a default import without arguments', assertBundle, {
 	fixture: resolvePath( fixturesPath, 'default-import-no-arguments.js' ),
 	expected: 'console.log(42);'
