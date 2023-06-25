@@ -63,7 +63,7 @@ async function handleCallExpression( node, macros, parse ) {
 
 	const macro = macros.get( name );
 	const macroResult = await executeMacro( macro );
-	const macroResultAST = parse( JSON.stringify( macroResult ) );
+	const macroResultAST = parse( `( ${ JSON.stringify( macroResult ) } )` );
 	const expression = getValueNode( macroResultAST );
 
 	this.replace( expression );
@@ -134,7 +134,7 @@ function getValueNode( node ) {
 			valueNode = node;
 			this.skip();
 		}
-	} )
+	} );
 
 	return valueNode;
 }

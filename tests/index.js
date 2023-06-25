@@ -22,6 +22,15 @@ test( 'inlining results of several named imports without arguments', assertBundl
 console.log(true);`
 } );
 
+test(
+	'inlining an object result of a single named import without arguments',
+	assertBundle,
+	{
+		fixture: resolvePath( fixturesPath, 'named-export-no-arguments-object.js' ),
+		expected: 'console.log({ \'a\': true });'
+	}
+);
+
 test( 'old assert syntax is correctly recognized', assertBundle, {
 	fixture: resolvePath( fixturesPath, 'old-syntax.js' ),
 	expected: 'console.log(42);'
