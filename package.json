@@ -73,5 +73,10 @@
     "eslint": "^8.43.0",
     "husky": "^8.0.3",
     "rollup": "^3.25.1"
+  },
+  "dependencies": {
+    "escodegen": "^2.0.0",
+    "estree-walker": "^3.0.3",
+    "tempy": "^3.0.0"
   }
 }
