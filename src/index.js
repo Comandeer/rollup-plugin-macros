@@ -88,8 +88,11 @@ function extractMacros( macros, node, modulePath ) {
 	const macroPath = resolvePath( moduleDirPath, node.source.value );
 
 	node.specifiers.forEach( ( specifier ) => {
+		const originalName = specifier.type === 'ImportDefaultSpecifier' ?
+			'default' :
+			specifier.imported.name
 		macros.set( specifier.local.name, {
-			name: specifier.imported.name,
+			name: originalName,
 			path: macroPath
 		} );
 	} );
@@ -97,10 +100,11 @@ function extractMacros( macros, node, modulePath ) {
 
 function executeMacro( { name, path } ) {
 	return new Promise( async ( resolve, reject ) => {
+		const alias = name === 'default' ? 'tempName' : name;
 		const code = `import { parentPort } from 'node:worker_threads';
-		import { ${ name } } from '${ path }';
+		import { ${ name } as ${ alias } } from '${ path }';
 
-		const result = await ${ name }();
+		const result = await ${ alias }();
 
 		parentPort.postMessage( result );`
 
