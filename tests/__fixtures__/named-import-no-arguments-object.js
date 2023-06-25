@@ -1,3 +1,3 @@
-import { returnObject } from './return-object.js' with { type: 'macro' };
+import { returnObject } from './macros/return-object.js' with { type: 'macro' };
 
 console.log( returnObject() );

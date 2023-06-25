@@ -1,3 +1,3 @@
-import { random } from './random.js' assert { type: 'macro' };
+import { random } from './macros/random.js' assert { type: 'macro' };
 
 console.log( random() );

@@ -1,3 +1,3 @@
-import { returnArray } from './return-array.js' with { type: 'macro' };
+import { returnArray } from './macros/return-array.js' with { type: 'macro' };
 
 console.log( returnArray() );
