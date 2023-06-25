@@ -36,6 +36,11 @@ test( 'inlining result of a default import without arguments', assertBundle, {
 	expected: 'console.log(42);'
 } );
 
+test( 'inlining result of a single named import with arguments', assertBundle, {
+	fixture: resolvePath( fixturesPath, 'named-import-arguments.js' ),
+	expected: 'console.log(4);'
+} );
+
 test( 'old assert syntax is correctly recognized', assertBundle, {
 	fixture: resolvePath( fixturesPath, 'old-syntax.js' ),
 	expected: 'console.log(42);'

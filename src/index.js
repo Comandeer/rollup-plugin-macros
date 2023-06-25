@@ -56,13 +56,21 @@ function handleImportDeclaration( node, macros, path ) {
 
 async function handleCallExpression( node, macros, parse ) {
 	const name = node.callee.name;
-
 	if ( !macros.has( name ) ) {
 		return;
 	}
 
 	const macro = macros.get( name );
-	const macroResult = await executeMacro( macro );
+	const args = node.arguments;
+	const isSupported = args.every( ( arg ) => {
+		return arg.type === 'Literal';
+	} );
+
+	if ( !isSupported ) {
+		throw new Error( 'Only macros with arguments of primitive types are supported currently.' );
+	}
+
+	const macroResult = await executeMacro( macro, args );
 	const macroResultAST = parse( `( ${ JSON.stringify( macroResult ) } )` );
 	const expression = getValueNode( macroResultAST );
 
@@ -98,13 +106,16 @@ function extractMacros( macros, node, modulePath ) {
 	} );
 }
 
-function executeMacro( { name, path } ) {
+function executeMacro( { name, path }, args ) {
 	return new Promise( async ( resolve, reject ) => {
 		const alias = name === 'default' ? 'tempName' : name;
+		const formattedArgs = args.map( ( { raw } ) => {
+			return raw
+		} ).join( ', ' );
 		const code = `import { parentPort } from 'node:worker_threads';
 		import { ${ name } as ${ alias } } from '${ path }';
 
-		const result = await ${ alias }();
+		const result = await ${ alias }( ${ formattedArgs } );
 
 		parentPort.postMessage( result );`
 
