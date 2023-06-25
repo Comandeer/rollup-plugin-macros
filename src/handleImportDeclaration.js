@@ -1,4 +1,4 @@
-import { dirname, resolve as resolvePath } from 'node:path';
+import { dirname, resolve as resolvePath } from 'pathe';
 
 /**
  *

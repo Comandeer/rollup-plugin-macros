@@ -77,6 +77,7 @@
   "dependencies": {
     "escodegen": "^2.0.0",
     "estree-walker": "^3.0.3",
+    "pathe": "^1.1.1",
     "tempy": "^3.0.0"
   }
 }

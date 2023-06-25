@@ -1,5 +1,5 @@
-import { resolve as resolvePath } from 'node:path';
 import test from 'ava';
+import { resolve as resolvePath } from 'pathe';
 import plugin from '../src/index.js';
 import getDirName from './__helpers__/getDirName.js';
 import assertBundle from './__helpers__/assertBundle.js';
