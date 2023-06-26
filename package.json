@@ -1,6 +1,6 @@
 {
   "name": "@comandeer/rollup-plugin-macros",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "description": "Experimental port of Bun macros into Rollup.js",
   "exports": {
