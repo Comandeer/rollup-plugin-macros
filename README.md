@@ -58,6 +58,8 @@ console.log(0.7507075485199182);
 
 ## How does it work?
 
+I've written a [detailed article in Polish](https://blog.comandeer.pl/makrony.html) about inner workings of this package.
+
 ## License
 
 See [LICENSE](./LICENSE) file for details.
