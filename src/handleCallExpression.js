@@ -19,6 +19,7 @@ async function handleCallExpression( node, macros, parse ) {
 		'ArrayExpression'
 	];
 	const name = node.callee.name;
+
 	if ( !macros.has( name ) ) {
 		return;
 	}

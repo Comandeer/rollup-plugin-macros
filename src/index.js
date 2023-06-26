@@ -25,6 +25,7 @@ import handleImportDeclaration from './handleImportDeclaration.js';
 function plugin() {
 	return {
 		name: '@comandeer/rollup-plugin-macros',
+
 		resolveId( importee, importer, { assertions } ) {
 			if ( assertions && assertions.type === 'macro' ) {
 				return {
@@ -35,6 +36,7 @@ function plugin() {
 
 			return null;
 		},
+
 		async transform( code, path ) {
 			const parse = this.parse;
 			const ast = parse( code );
@@ -46,6 +48,7 @@ function plugin() {
 					switch ( node.type ) {
 					case 'ImportDeclaration':
 						return handleImportDeclaration.call( this, node, macros, path );
+
 					case 'CallExpression':
 						return handleCallExpression.call( this, node, macros, parse );
 					}

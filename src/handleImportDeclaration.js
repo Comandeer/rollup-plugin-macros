@@ -21,10 +21,6 @@ function handleImportDeclaration( node, macros, path ) {
  * @returns {boolean}
  */
 function isMacroImport( node ) {
-	if ( node.type !== 'ImportDeclaration' ) {
-		return false;
-	}
-
 	if ( !node.assertions ) {
 		return false;
 	}
@@ -49,6 +45,7 @@ function extractMacros( macros, node, modulePath ) {
 		const originalName = specifier.type === 'ImportDefaultSpecifier' ?
 			'default' :
 			specifier.imported.name;
+
 		macros.set( specifier.local.name, {
 			name: originalName,
 			path: macroPath
