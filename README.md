@@ -15,7 +15,7 @@ npm install @comandeer/rollup-plugin-macros --save-dev
 Add it to your Rollup.js configuration:
 
 ```javascript
-import macros from '@comandeer/rollup-plugin-macros;
+import macros from '@comandeer/rollup-plugin-macros';
 
 export default {
     input: './src/index.js',
